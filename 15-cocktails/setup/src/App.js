@@ -8,6 +8,7 @@ import Error from "./pages/Error";
 // import components
 import Navbar from "./components/Navbar";
 import SharedNavbar from "./components/SharedNavbar";
+
 function App() {
   return (
     <BrowserRouter>
