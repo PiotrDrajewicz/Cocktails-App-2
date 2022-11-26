@@ -6,13 +6,11 @@ import About from "./pages/About";
 import SingleCocktail from "./pages/SingleCocktail";
 import Error from "./pages/Error";
 // import components
-import Navbar from "./components/Navbar";
 import SharedNavbar from "./components/SharedNavbar";
 
 function App() {
   return (
     <BrowserRouter>
-      {/* <Navbar /> */}
       <Routes>
         <Route path="/" element={<SharedNavbar />}>
           <Route index element={<Home />} />
