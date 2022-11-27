@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Loading from "../components/Loading";
 import { useParams, Link } from "react-router-dom";
 const url = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=";
@@ -7,14 +7,12 @@ const SingleCocktail = () => {
   const [loading, setLoading] = useState(false);
   const [cocktail, setCocktail] = useState(null);
   const { id } = useParams();
-  console.log(id);
 
-  const fetchSingleCocktail = async () => {
+  const fetchSingleCocktail = useCallback(async () => {
     try {
       const response = await fetch(`${url}${id}`);
-      const data = response.json();
+      const data = await response.json();
       if (data.drinks) {
-        console.log("jest");
         const {
           strDrink: name,
           strDrinkThumb: image,
@@ -48,7 +46,6 @@ const SingleCocktail = () => {
         };
         setCocktail(newCocktail);
       } else {
-        console.log("nie ma");
         setCocktail(null);
       }
       setLoading(false);
@@ -56,12 +53,12 @@ const SingleCocktail = () => {
       console.log(error);
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     setLoading(true);
     fetchSingleCocktail();
-  }, [id]);
+  }, [id, fetchSingleCocktail]);
 
   if (loading) {
     return <Loading />;
